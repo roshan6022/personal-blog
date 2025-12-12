@@ -1,18 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "@/styles/globals.css";
-import { Navbar } from "@/components/layout/Navbar";
+import Navbar from "@/components/layout/Navbar";
 import { ThemeProvider } from "@/components/ThemeProvider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { geistMono } from "@/lib/fonts";
+import { fontSans } from "@/lib/fonts";
 
 export default function RootLayout({
   children,
@@ -22,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white dark:bg-neutral-900 transition-colors`}
+        className={`${geistMono.variable} ${fontSans.variable} antialiased bg-stone-100 dark:bg-black transition-colors`}
       >
         <ThemeProvider
           attribute="class"

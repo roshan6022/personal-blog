@@ -1,92 +1,70 @@
-"use client";
-
-import React, { useState } from "react";
+import { Clock } from "lucide-react";
 import Link from "next/link";
-import { Clock, ArrowRight } from "lucide-react";
-import type { Post } from "@/types/blog";
+import Image from "next/image";
 
-interface PostCardProps {
-  post: Post;
-  index: number;
-}
+// import type { Post } from "@prisma/client";
 
-export function PostCard({ post, index }: PostCardProps) {
-  const [isHovered, setIsHovered] = useState(false);
+// type PostCardProps = Pick<Post, "title" | "slug" | "readTime" | "coverImage">;
 
-  const formattedDate = new Date(post.createdAt).toLocaleDateString("en-US", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  });
+type PostCardProps = {
+  title: string;
+  readTime: number | null;
+  slug: string;
+  coverImage: string | null;
+};
 
+export function PostCard({ title, readTime, slug, coverImage }: PostCardProps) {
   return (
-    <article
-      className="group opacity-0 animate-fadeIn"
-      style={{
-        animationDelay: `${index * 100}ms`,
-        animationFillMode: "forwards",
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+    <Link
+      href={`/post/${slug}`}
+      className="group relative block border border-black/20 bg-white hover:bg-neutral-50 transition-colors overflow-hidden"
     >
-      <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/10 dark:hover:shadow-blue-500/20 border border-gray-100 dark:border-gray-700">
-        {post.coverImage && (
-          <div className="relative h-64 overflow-hidden">
-            <img
-              src={post.coverImage}
-              alt={post.title}
-              className="w-full h-full object-cover transform transition-transform duration-700 group-hover:scale-110"
-            />
-            <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+      {/* Vertical Side Label */}
+      <div className="absolute left-0 top-0 h-full w-[1px] bg-black/10" />
+      <div className="absolute right-0 top-0 h-full w-[1px] bg-black/10" />
+
+      <div className="absolute -left-8 top-1/2 -translate-y-1/2 rotate-90">
+        <span className="text-[9px] font-mono tracking-widest text-neutral-400">
+          MODULE • {slug}
+        </span>
+      </div>
+
+      {/* Header Row */}
+      <div className="flex justify-between items-center border-b border-black/15 px-4 py-2 bg-neutral-50/30">
+        <span className="text-[10px] font-mono tracking-wider text-neutral-600">
+          SECTION 01.{Math.floor(Math.random() * 90)}
+        </span>
+        <span className="text-[10px] font-mono tracking-wider text-neutral-600">
+          {readTime} MIN
+        </span>
+      </div>
+
+      {/* Image */}
+      <div className="aspect-[4/3] border-b border-black/15 relative overflow-hidden">
+        {coverImage ? (
+          <Image
+            src={coverImage}
+            alt={title}
+            fill
+            className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center text-neutral-400 text-xs font-mono tracking-wider">
+            NO IMAGE
           </div>
         )}
-
-        <div className="p-8">
-          {post.categories && post.categories.length > 0 && (
-            <div className="flex flex-wrap gap-2 mb-4">
-              {post.categories.map((category, idx) => (
-                <span
-                  key={idx}
-                  className="px-3 py-1 text-xs font-medium rounded-full bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 hover:bg-blue-100 dark:hover:bg-blue-900/50 transition-colors duration-200 cursor-pointer"
-                >
-                  {category.name}
-                </span>
-              ))}
-            </div>
-          )}
-
-          <Link href={`/post/${post.slug}`}>
-            <h2 className="text-2xl font-bold mb-3 text-gray-900 dark:text-white leading-tight group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-              {post.title}
-            </h2>
-          </Link>
-
-          <p className="text-gray-600 dark:text-gray-300 mb-6 line-clamp-3 leading-relaxed">
-            {post.content}
-          </p>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2 text-sm text-gray-500 dark:text-gray-400">
-              <Clock className="w-4 h-4" />
-              <time dateTime={post.createdAt.toISOString()}>
-                {formattedDate}
-              </time>
-            </div>
-
-            <Link
-              href={`/post/${post.slug}`}
-              className="flex items-center space-x-2 text-blue-600 dark:text-blue-400 font-medium hover:space-x-3 transition-all duration-200"
-            >
-              <span>Read more</span>
-              <ArrowRight
-                className={`w-4 h-4 transition-transform duration-200 ${
-                  isHovered ? "translate-x-1" : ""
-                }`}
-              />
-            </Link>
-          </div>
-        </div>
       </div>
-    </article>
+
+      {/* Title Block */}
+      <div className="px-4 py-6">
+        <p className="text-[10px] font-mono text-neutral-500 mb-3 tracking-wider">
+          SPECIFICATION ENTRY
+        </p>
+
+        <h2 className="text-[18px] font-medium text-neutral-900 leading-tight tracking-tight group-hover:translate-x-[2px] transition-transform">
+          {title}
+        </h2>
+      </div>
+    </Link>
   );
 }

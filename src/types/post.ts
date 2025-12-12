@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { postSchema } from "@/schema/postSchema";
+import { postCreateSchema } from "@/schema/postSchema";
 
-type IPost = z.infer<typeof postSchema>;
+type Post = z.infer<typeof postCreateSchema>;
 
-export type { IPost };
+export type { Post };

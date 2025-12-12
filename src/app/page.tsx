@@ -14,6 +14,7 @@ export default async function Home() {
       content: true,
       coverImage: true,
       createdAt: true,
+      expectedReadTime: true,
       categories: {
         select: {
           name: true,
@@ -24,30 +25,36 @@ export default async function Home() {
   });
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-gray-50 via-white to-gray-50 dark:from-gray-950 dark:via-gray-900 dark:to-gray-950 transition-colors duration-300">
-      <main className="max-w-6xl mx-auto px-6 py-12">
-        <div className="mb-12 opacity-0 animate-fadeIn">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4 leading-tight">
-            Recent Stories
-          </h2>
-          <p className="text-lg text-gray-600 dark:text-gray-300">
-            Discover perspectives that matter
-          </p>
-        </div>
-        <div className="text-white bg-black dark:bg-green-500 p-4">
-          Test Dark Mode
-        </div>
+    <div className="relative max-w-7xl mx-auto px-8 py-24 bg-grid">
+      {/* Page Vertical Grid Lines */}
+      <div className="absolute inset-0 pointer-events-none z-[-1] grid grid-cols-12 gap-4">
+        {[...Array(12)].map((_, i) => (
+          <div key={i} className="border-l border-black/5" />
+        ))}
+      </div>
 
-        {posts.length === 0 ? (
-          <p>No posts yet</p>
-        ) : (
-          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-1">
-            {posts.map((post, index) => (
-              <PostCard key={post.id} post={post} index={index} />
-            ))}
-          </div>
-        )}
-      </main>
+      {/* Page Header */}
+      <div className="mb-24 border-b border-black/15 pb-6">
+        <p className="text-[10px] font-mono uppercase tracking-widest text-neutral-500">
+          INDEX • 001
+        </p>
+        <h2 className="text-[34px] leading-none tracking-tight">
+          Latest Posts
+        </h2>
+      </div>
+
+      {/* Grid */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-20">
+        {posts.map((post) => (
+          <PostCard
+            key={post.id}
+            title={post.title}
+            readTime={post.expectedReadTime}
+            slug={post.slug}
+            coverImage={post.coverImage}
+          />
+        ))}
+      </div>
     </div>
   );
 }
