@@ -40,8 +40,32 @@ html {
       transparent 1px
     ),
     linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
-  background-size: 48px 48px; /* adjust spacing */
+  background-size: 48px 48px;
 }
+/* .bg-grid {
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.05) 1px,
+      transparent 1px
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+} */
+
+/* dot */
+/* .bg-grid {
+  background-image: radial-gradient(rgba(0, 0, 0, 0.07) 1px, transparent 1px);
+  background-size: 28px 28px;
+} */
+/* Swiss */
+/* .bg-grid {
+  background-image: linear-gradient(
+    to right,
+    rgba(0, 0, 0, 0.06) 1px,
+    transparent 1px
+  );
+  background-size: 80px 100%;
+} */
 
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
