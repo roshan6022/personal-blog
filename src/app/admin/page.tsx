@@ -14,35 +14,56 @@ export default async function Page() {
   });
 
   return (
-    <div className="p-6 space-y-8">
-      <h1 className="text-3xl font-bold mb-4">Admin Dashboard</h1>
+    <div className="max-w-6xl mx-auto px-6 py-10 space-y-10">
+      {/* Header */}
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">Admin Dashboard</h1>
 
-      <Link
-        href="/admin/post/create"
-        className="bg-black text-white px-3 py-2 rounded"
-      >
-        Create New Post
-      </Link>
+        <Link
+          href="/admin/post/create"
+          className="inline-flex items-center gap-2 rounded-md bg-black px-4 py-2 text-sm font-medium text-white hover:bg-black/90 transition"
+        >
+          + New Post
+        </Link>
+      </div>
 
-      <div className="space-y-6">
+      {/* Posts List */}
+      <div className="grid gap-4">
         {posts.map((post) => (
-          <div key={post.id} className="border p-4 rounded">
-            <h3 className="text-xl font-semibold">{post.title}</h3>
-            <p className="text-gray-600 text-sm">{post.slug}</p>
-            <p className="text-gray-500 text-sm">
-              {post.published ? "Published" : "Draft"}
-            </p>
+          <div
+            key={post.id}
+            className="rounded-lg border bg-white p-5 shadow-sm hover:shadow-md transition"
+          >
+            <div className="flex items-start justify-between gap-4">
+              {/* Post Info */}
+              <div>
+                <h3 className="text-lg font-semibold text-gray-900">
+                  {post.title}
+                </h3>
+                <p className="text-sm text-gray-500">{post.slug}</p>
+              </div>
 
-            <div className="flex gap-4 mt-4">
-              {/* EDIT BUTTON */}
+              {/* Status Badge */}
+              <span
+                className={`inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ${
+                  post.published
+                    ? "bg-green-100 text-green-700"
+                    : "bg-yellow-100 text-yellow-700"
+                }`}
+              >
+                {post.published ? "Published" : "Draft"}
+              </span>
+            </div>
+
+            {/* Actions */}
+            <div className="mt-4 flex items-center gap-4">
               <Link
                 href={`/admin/post/edit/${post.id}`}
-                className="text-blue-600 underline"
+                className="text-sm font-medium text-blue-600 hover:underline"
               >
                 Edit
               </Link>
 
-              {/* DELETE BUTTON (Client Component) */}
               <DeleteButton id={post.id} />
             </div>
           </div>

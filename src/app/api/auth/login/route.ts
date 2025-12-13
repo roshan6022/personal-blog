@@ -11,8 +11,6 @@ export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const parsed = loginSchema.safeParse(body);
-    console.log(body);
-    console.log(parsed);
 
     if (!parsed.success) {
       return NextResponse.json(
@@ -31,7 +29,6 @@ export async function POST(req: NextRequest) {
         passwordHash: true,
       },
     });
-    console.log("Admin record: ", admin);
 
     if (!admin) {
       return NextResponse.json(
@@ -39,12 +36,6 @@ export async function POST(req: NextRequest) {
         { status: 401 }
       );
     }
-    console.log(
-      await bcrypt.compare(
-        "vagabond",
-        "$2b$10$iOfDd6B5MhWzu1cPZAhUtO1J2wZh297dLqWloR4Yxrc/tgYReUhiK"
-      )
-    );
 
     const isPasswordValid = await bcrypt.compare(password, admin.passwordHash);
 
