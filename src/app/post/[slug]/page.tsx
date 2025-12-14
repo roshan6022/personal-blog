@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import prisma from "@/lib/prisma";
 import { markdownToHtml } from "@/lib/markdown";
 import { CodeCopyScript } from "@/components/CodeCopyScript";
+import { randomNumber } from "@/lib/randomNumber";
 
 interface PageProps {
   params: Promise<{
@@ -39,7 +40,7 @@ export default async function Page({ params }: PageProps) {
       {/* Header */}
       <header className="mb-24 border-b border-black/10 dark:border-white/15 pb-8">
         <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-4">
-          SECTION • 01.00 – TECHNICAL REPORT
+          SECTION • 01.{randomNumber} – TECHNICAL REPORT
         </p>
 
         <h1 className="text-[42px] leading-[1.1] tracking-tight text-neutral-900 dark:text-neutral-100">
@@ -62,7 +63,7 @@ export default async function Page({ params }: PageProps) {
           />
 
           <div className="absolute top-2 left-2 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm px-2 py-[2px] text-[10px] font-mono tracking-wider border border-black/10 dark:border-white/15">
-            FIGURE 1.0
+            FIGURE 1.{randomNumber}
           </div>
         </div>
       )}

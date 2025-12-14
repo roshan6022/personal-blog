@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
+import { randomNumber } from "@/lib/randomNumber";
 
 type PostCardProps = {
   title: string;
@@ -38,7 +39,7 @@ export function PostCard({ title, readTime, slug, coverImage }: PostCardProps) {
         "
       >
         <span className="text-[10px] font-mono tracking-wider text-neutral-600 dark:text-neutral-400">
-          SECTION 01.{Math.floor(Math.random() * 90)}
+          SECTION 01.{randomNumber}
         </span>
         <span className="text-[10px] font-mono tracking-wider text-neutral-600 dark:text-neutral-400">
           {readTime} MIN
