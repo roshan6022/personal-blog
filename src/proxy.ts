@@ -10,15 +10,15 @@ export default function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.url));
   }
 
-  if (pathname === "/api/post") {
-    const url = new URL("/post", BACKEND_URL);
-    return NextResponse.rewrite(url);
-  }
+  // if (pathname === "/api/post") {
+  //   const url = new URL("/post", BACKEND_URL);
+  //   return NextResponse.rewrite(url);
+  // }
 
-  if (pathname.startsWith("/api/post/")) {
-    const url = new URL(pathname.replace("/api/post", "/post"), BACKEND_URL);
-    return NextResponse.rewrite(url);
-  }
+  // if (pathname.startsWith("/api/post/")) {
+  //   const url = new URL(pathname.replace("/api/post", "/post"), BACKEND_URL);
+  //   return NextResponse.rewrite(url);
+  // }
 
   // Add security headers to all other responses
   const response = NextResponse.next();

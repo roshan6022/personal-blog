@@ -15,6 +15,7 @@ export default function Navbar() {
   if (!mounted) {
     return null; // ⬅️ prevents hydration mismatch
   }
+
   return (
     <nav className="border-b border-gray-200 bg-stone-100 dark:border-neutral-800 dark:bg-neutral-950">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,13 +72,20 @@ export default function Navbar() {
 
               {/* Shortcut hint */}
               <Kbd
-                className="absolute right-7 top-1/2 -translate-y-1/2
-               text-[14px] rounded mr-1
+                className="absolute right-13 top-1/2 -translate-y-1/2
+               text-[17px] rounded mr-1
                bg-gray-100 text-gray-600
                dark:bg-neutral-800 dark:text-neutral-400"
               >
-                <span className="pr-1 text-[17px]">⌘</span>
-                <span className="pl-1.5">K</span>
+                ⌘
+              </Kbd>
+              <Kbd
+                className="absolute right-7 top-1/2 -translate-y-1/2
+               text-[12px] rounded mr-1
+               bg-gray-100 text-gray-600
+               dark:bg-neutral-800 dark:text-neutral-400"
+              >
+                K
               </Kbd>
             </div>
 

@@ -4,11 +4,13 @@ import * as React from "react";
 import { Contrast } from "lucide-react";
 import { useTheme } from "next-themes";
 import { motion, AnimatePresence } from "framer-motion";
+import { useClickSound } from "@/lib/audio";
 
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
+  const playClick = useClickSound();
   React.useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
@@ -16,7 +18,10 @@ export function ThemeToggle() {
 
   return (
     <button
-      onClick={() => setTheme(isDark ? "light" : "dark")}
+      onClick={() => {
+        setTheme(isDark ? "light" : "dark");
+        playClick();
+      }}
       aria-label="Toggle theme"
       className="p-1 cursor-pointer select-none focus:outline-none"
     >
