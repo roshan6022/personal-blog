@@ -26,7 +26,7 @@ export default function Navbar() {
             className="text-xl font-medium text-gray-700 hover:text-gray-900 transition-colors
                        dark:text-neutral-300 dark:hover:text-white"
           >
-            Light
+            Index
           </Link>
 
           {/* Right Side */}
