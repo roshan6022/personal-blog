@@ -1,10 +1,9 @@
-export const revalidate = 60;
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import prisma from "@/lib/prisma";
 import { markdownToHtml } from "@/lib/markdown";
 import { CodeCopyScript } from "@/components/CodeCopyScript";
 import { randomNumber } from "@/lib/randomNumber";
-
 
 interface PageProps {
   params: Promise<{
@@ -33,8 +32,8 @@ export default async function Page({ params }: PageProps) {
       <CornerMarks />
 
       {/* Side marginalia */}
-      <div className="hidden lg:block absolute left-0 top-40 -translate-x-20 rotate-90">
-        <span className="text-[10px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500">
+      <div className="hidden lg:block absolute top-50 -left-15 w-16">
+        <span className="absolute left-1/2 rotate-90 -translate-x-1/2 text-[10px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500 whitespace-nowrap">
           DOCUMENT REF • {post.slug}
         </span>
       </div>
@@ -58,13 +57,22 @@ export default async function Page({ params }: PageProps) {
 
       {/* Cover */}
       {post.coverImage && (
-        <div className="mb-20 border border-black/10 dark:border-white/15 relative">
-          <img
+        <div className="mb-20 border border-black/10 dark:border-white/15 relative aspect-video overflow-hidden">
+          <Image
             src={post.coverImage}
-            className="w-sm h-sm object-cover grayscale-50 hover:grayscale-25 transition duration-500"
+            alt={post.title}
+            fill
+            className="
+      object-cover
+      grayscale-50
+      hover:grayscale-25
+      transition duration-500
+    "
+            sizes="(max-width: 768px) 100vw, 50vw"
+            priority={false}
           />
 
-          <div className="absolute top-2 left-2 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm px-2 py-[2px] text-[10px] font-mono tracking-wider border border-black/10 dark:border-white/15">
+          <div className="absolute top-2 left-2 bg-white/70 dark:bg-neutral-900/70 backdrop-blur-sm px-2 py-0.5 text-[10px] font-mono tracking-wider border border-black/10 dark:border-white/15">
             FIGURE 1.{randomNumber}
           </div>
         </div>

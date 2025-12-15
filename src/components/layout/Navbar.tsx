@@ -23,7 +23,7 @@ export default function Navbar() {
           {/* App Name */}
           <Link
             href="/"
-            className="text-xl font-medium text-gray-700 hover:text-gray-900 transition-colors
+            className="text-2xl font-medium text-gray-700 hover:text-gray-900 transition-colors
                        dark:text-neutral-300 dark:hover:text-white"
           >
             Index
