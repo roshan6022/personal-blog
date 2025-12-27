@@ -64,7 +64,7 @@ export default function Navbar() {
                 }
                 className="absolute right-2 top-1/2 -translate-y-1/2
                text-gray-400 hover:text-gray-600 
-               dark:text-neutral-500 dark:hover:text-neutral-300"
+               dark:text-neutral-500 dark:hover:text-neutral-300 cursor-pointer"
                 aria-label="Open search"
               >
                 <Search className="w-4 h-4" />

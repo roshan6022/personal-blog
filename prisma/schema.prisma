@@ -19,7 +19,7 @@ model Post {
   updatedAt        DateTime   @updatedAt
   title            String
   slug             String     @unique
-  content          String
+  content          String     @db.Text
   published        Boolean    @default(false)
   coverImage       String?
   categories       Category[]

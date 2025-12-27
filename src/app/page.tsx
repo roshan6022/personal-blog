@@ -29,7 +29,7 @@ export default async function Home() {
     <div
       className="
     relative max-w-7xl mx-auto px-8 py-24 bg-grid
-    dark:bg-neutral-950
+    dark:bg-black
   "
     >
       {/* Page Vertical Grid Lines */}

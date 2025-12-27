@@ -4,6 +4,8 @@ import prisma from "@/lib/prisma";
 import { markdownToHtml } from "@/lib/markdown";
 import { CodeCopyScript } from "@/components/CodeCopyScript";
 import { randomNumber } from "@/lib/randomNumber";
+import { CornerMarks } from "@/components/corner-marks";
+import { PostContent } from "@/components/PostContent";
 
 interface PageProps {
   params: Promise<{
@@ -20,24 +22,24 @@ export default async function Page({ params }: PageProps) {
 
   if (!post) notFound();
 
-  // Markdown → HTML
   const html = await markdownToHtml(post.content);
+
+  console.log("=== FULL HTML OUTPUT ===");
+  console.log(html);
+  console.log("=== END HTML ===");
 
   return (
     <div className="relative max-w-5xl mx-auto px-8 py-24 dark:text-neutral-100">
       {/* Background Grid */}
       <div className="absolute inset-0 -z-10 bg-grid pointer-events-none" />
-
       {/* Blueprint corner marks */}
       <CornerMarks />
-
       {/* Side marginalia */}
       <div className="hidden lg:block absolute top-50 -left-15 w-16">
         <span className="absolute left-1/2 rotate-90 -translate-x-1/2 text-[10px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500 whitespace-nowrap">
           DOCUMENT REF • {post.slug}
         </span>
       </div>
-
       {/* Header */}
       <header className="mb-24 border-b border-black/10 dark:border-white/15 pb-8">
         <p className="text-[11px] font-mono uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400 mb-4">
@@ -54,7 +56,6 @@ export default async function Page({ params }: PageProps) {
           <span>ID • {post.slug.toUpperCase()}</span>
         </div>
       </header>
-
       {/* Cover */}
       {post.coverImage && (
         <div className="mb-20 border border-black/10 dark:border-white/15 relative aspect-video overflow-hidden">
@@ -77,71 +78,15 @@ export default async function Page({ params }: PageProps) {
           </div>
         </div>
       )}
-
       {/* Content */}
-      <article className="relative">
-        {/* Right notes */}
-        <aside className="hidden lg:block absolute right-0 top-0 -mr-24 w-32 text-[10px] font-mono text-neutral-500 dark:text-neutral-400 leading-relaxed tracking-wider">
-          <p>NOTES</p>
-          {/* <p className="mt-6 opacity-80">
-            Check alignment with grid structure. Review semantic rhythm. Verify
-            typographic hierarchy.
-          </p> */}
-        </aside>
-
-        {/* Prose */}
-        <div
-          className="
-            prose prose-neutral max-w-none
-            dark:prose-invert
-
-            prose-p:text-[17px] prose-p:leading-[1.75]
-            prose-img:border prose-img:border-black/10 dark:prose-img:border-white/15
-            prose-img:my-12
-
-            prose-h2:text-[28px] prose-h2:font-medium prose-h2:tracking-tight
-            prose-h3:text-[20px] prose-h3:font-medium
-          "
-          dangerouslySetInnerHTML={{
-            __html: numberParagraphs(html),
-          }}
-        />
-      </article>
+      <PostContent post={post} html={html} />
 
       {/* Footer */}
       <footer className="mt-24 pt-6 border-t border-black/10 dark:border-white/15 text-[11px] font-mono text-neutral-500 dark:text-neutral-400 tracking-widest">
         END OF DOCUMENT • {post.slug.toUpperCase()}
       </footer>
-
       {/* Copy button injector */}
       <CodeCopyScript />
-    </div>
-  );
-}
-
-/* Paragraph numbering */
-function numberParagraphs(html: string) {
-  return html
-    .split("</p>")
-    .map((p, i) =>
-      p.trim()
-        ? `<p><span class="paragraph-marker">${String(i + 1).padStart(
-            2,
-            "0"
-          )}.</span> ${p}</p>`
-        : ""
-    )
-    .join("");
-}
-
-/* Corner marks */
-function CornerMarks() {
-  return (
-    <div className="pointer-events-none absolute inset-0">
-      <div className="absolute top-6 left-6 w-5 h-5 border-t border-l border-black/20 dark:border-white/20" />
-      <div className="absolute top-6 right-6 w-5 h-5 border-t border-r border-black/20 dark:border-white/20" />
-      <div className="absolute bottom-6 left-6 w-5 h-5 border-b border-l border-black/20 dark:border-white/20" />
-      <div className="absolute bottom-6 right-6 w-5 h-5 border-b border-r border-black/20 dark:border-white/20" />
     </div>
   );
 }
