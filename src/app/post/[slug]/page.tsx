@@ -24,10 +24,6 @@ export default async function Page({ params }: PageProps) {
 
   const html = await markdownToHtml(post.content);
 
-  console.log("=== FULL HTML OUTPUT ===");
-  console.log(html);
-  console.log("=== END HTML ===");
-
   return (
     <div className="relative max-w-5xl mx-auto px-8 py-24 dark:text-neutral-100">
       {/* Background Grid */}
