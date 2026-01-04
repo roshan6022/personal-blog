@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal Blog
 
-## Getting Started
+Notes from building and learning
 
-First, run the development server:
+## Exmaple
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Below are a few snapshots of the blog UI and layout.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<!-- Horizontal comparison -->
+<div style="display: flex; gap: 16px;">
+  <img src="./public/assets/blog-dark.png" width="440" />
+  <img src="./public/assets/blog-home.png" width="440" />
+</div>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<br />
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+<!-- Vertical showcase -->
+<div style="display: flex; flex-direction: column; gap: 16px;">
+  <img src="./public/assets/blog-post.png" width="900" />
+  <img src="./public/assets/blog-search.png" width="900" />
+</div>
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. **Fork the repo**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. **Clone your fork**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+   ```bash
+   git clone https://github.com/<username>/personal-blog.git
+   ```
 
-## Deploy on Vercel
+3. **Move to the project root directory**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+   ```bash
+   cd personal-blog
+   ```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+4. **Install dependencies**
+
+   ```bash
+   pnpm install
+   ```
+
+5. **Run the Project**
+
+   ```bash
+   pnpm dev
+   ```
+
+   Project should be running at `localhost:3000/`
