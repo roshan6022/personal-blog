@@ -8,8 +8,8 @@ Below are a few snapshots of the blog UI and layout.
 
 <!-- Horizontal comparison -->
 <div style="display: flex; gap: 16px;">
-  <img src="./public/assets/blog-dark.png" width="440" />
-  <img src="./public/assets/blog-home.png" width="440" />
+  <img src="./public/assets/blog-dark.png" width="400" />
+  <img src="./public/assets/blog-home.png" width="400" />
 </div>
 
 <br />
