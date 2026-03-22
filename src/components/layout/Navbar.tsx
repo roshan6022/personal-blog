@@ -26,7 +26,7 @@ export default function Navbar() {
             className="text-2xl font-medium text-gray-700 hover:text-gray-900 transition-colors
                        dark:text-neutral-300 dark:hover:text-white"
           >
-            Index
+            Notes
           </Link>
 
           {/* Right Side */}
@@ -39,7 +39,7 @@ export default function Navbar() {
                 readOnly
                 onClick={() =>
                   document.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "k", ctrlKey: true })
+                    new KeyboardEvent("keydown", { key: "k", ctrlKey: true }),
                   )
                 }
                 className="
@@ -59,11 +59,11 @@ export default function Navbar() {
               <button
                 onClick={() =>
                   document.dispatchEvent(
-                    new KeyboardEvent("keydown", { key: "k", ctrlKey: true })
+                    new KeyboardEvent("keydown", { key: "k", ctrlKey: true }),
                   )
                 }
                 className="absolute right-2 top-1/2 -translate-y-1/2
-               text-gray-400 hover:text-gray-600 
+               text-gray-400 hover:text-gray-600
                dark:text-neutral-500 dark:hover:text-neutral-300 cursor-pointer"
                 aria-label="Open search"
               >
@@ -94,7 +94,7 @@ export default function Navbar() {
               aria-label="Search"
               onClick={() =>
                 document.dispatchEvent(
-                  new KeyboardEvent("keydown", { key: "k", ctrlKey: true })
+                  new KeyboardEvent("keydown", { key: "k", ctrlKey: true }),
                 )
               }
               className="sm:hidden text-gray-600 hover:text-gray-900
@@ -120,7 +120,7 @@ export default function Navbar() {
 
             {/* About (hide on very small screens) */}
             <Link
-              href="/about"
+              href="https://portfolio-one-mu-hkoyme9g5b.vercel.app/"
               className="hidden sm:inline font-medium text-gray-700 hover:text-gray-900 transition-colors
                          dark:text-neutral-300 dark:hover:text-white"
             >
