@@ -1,44 +1,40 @@
 "use client";
 
 import * as React from "react";
-import { Contrast } from "lucide-react";
+import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
-import { motion, AnimatePresence } from "framer-motion";
-import { useClickSound } from "@/lib/audio";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme();
+  const { setTheme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
 
-  const playClick = useClickSound();
   React.useEffect(() => setMounted(true), []);
   if (!mounted) return null;
 
-  const isDark = theme === "dark";
-
   return (
-    <button
-      onClick={() => {
-        setTheme(isDark ? "light" : "dark");
-        playClick();
-      }}
-      aria-label="Toggle theme"
-      className="p-1 cursor-pointer select-none focus:outline-none"
-    >
-      <AnimatePresence mode="wait" initial={false}>
-        <motion.span
-          key={isDark ? "dark" : "light"}
-          initial={{ rotate: -90, opacity: 0, scale: 0.9 }}
-          animate={{ rotate: 0, opacity: 1, scale: 1 }}
-          exit={{ rotate: 90, opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.18, ease: "easeOut" }}
-        >
-          <Contrast
-            className="h-5 w-5 text-gray-700 hover:text-gray-900 transition-colors
-                         dark:text-neutral-300 dark:hover:text-white"
-          />
-        </motion.span>
-      </AnimatePresence>
-    </button>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="outline" size="icon">
+          <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+          <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          <span className="sr-only">Toggle theme</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem onClick={() => setTheme("light")}>
+          Light
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={() => setTheme("dark")}>
+          Dark
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }

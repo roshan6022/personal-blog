@@ -27,29 +27,297 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  @keyframes drawer-open {
+    from {
+      opacity: 0;
+      transform: translateY(12px) scaleY(0.98);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0) scaleY(1);
+    }
+  }
+
+  @keyframes machine-boot {
+    0% {
+      opacity: 0;
+      transform: scaleY(0.02);
+      filter: brightness(2);
+    }
+    18% {
+      opacity: 1;
+      transform: scaleY(1);
+      filter: brightness(1.35);
+    }
+    30% {
+      transform: translateX(-2px);
+    }
+    36% {
+      transform: translateX(2px);
+    }
+    44%,
+    100% {
+      transform: translateX(0);
+      filter: brightness(1);
+    }
+  }
+
+  @keyframes sector-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes cursor-pulse {
+    0%,
+    45% {
+      opacity: 1;
+    }
+    46%,
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @keyframes reading-progress {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .archive-shell,
+  .document-shell {
+    animation: drawer-open 420ms steps(8, end);
+  }
+
+  .machine-shell {
+    animation: machine-boot 760ms steps(8, end);
+  }
+
+  .boot-panel {
+    animation: sector-reveal 500ms steps(6, end) 180ms both;
+  }
+
+  .sector-node {
+    animation: sector-reveal 420ms steps(5, end) both;
+  }
+
+  .reading-progress {
+    transform: scaleX(0);
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .reading-progress {
+      animation: reading-progress linear both;
+      animation-timeline: scroll(root);
+    }
+  }
 }
 
 html {
   scroll-behavior: smooth;
 }
 
+body {
+  font-family: var(--font-sans), Arial, sans-serif;
+}
+
+.dark body {
+  font-family: var(--font-mono), "Courier New", monospace;
+  text-shadow: 0 0 10px rgba(140, 255, 122, 0.08);
+}
+
 .bg-grid {
   background-image: linear-gradient(
       to right,
-      rgba(0, 0, 0, 0.05) 1px,
+      rgba(0, 0, 0, 0.055) 1px,
       transparent 1px
     ),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
   background-size: 48px 48px;
 }
 
 .dark .bg-grid {
   background-image: linear-gradient(
       to right,
-      rgba(255, 255, 255, 0.05) 1px,
+      rgba(140, 255, 122, 0.1) 1px,
       transparent 1px
     ),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    linear-gradient(to bottom, rgba(140, 255, 122, 0.07) 1px, transparent 1px);
+}
+
+.dark .archive-shell::after,
+.dark .document-shell::after,
+.dark .machine-shell::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  background: radial-gradient(
+      circle at center,
+      transparent 0,
+      transparent 55%,
+      rgba(0, 0, 0, 0.34) 100%
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(140, 255, 122, 0.04),
+      rgba(140, 255, 122, 0.04) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  mix-blend-mode: screen;
+}
+
+.machine-window {
+  border: 2px solid rgba(140, 255, 122, 0.55);
+  background: #030503;
+  box-shadow:
+    inset 0 0 0 1px rgba(216, 246, 208, 0.08),
+    6px 6px 0 rgba(140, 255, 122, 0.12);
+}
+
+.machine-titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-bottom: 2px solid rgba(140, 255, 122, 0.45);
+  background: rgba(140, 255, 122, 0.12);
+  padding: 0.55rem 0.75rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(216, 246, 208, 0.9);
+}
+
+.directory-button {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 0.75rem;
+  border: 2px solid rgba(140, 255, 122, 0.45);
+  padding: 0.8rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(216, 246, 208, 0.9);
+  transition:
+    background-color 120ms steps(2, end),
+    color 120ms steps(2, end),
+    transform 120ms steps(2, end);
+}
+
+.directory-button:hover {
+  background: #8cff7a;
+  color: #030503;
+  transform: translate(-2px, -2px);
+}
+
+.directory-button:hover .disk-icon {
+  border-color: #030503;
+  background: #030503;
+}
+
+.disk-icon {
+  position: relative;
+  display: block;
+  height: 2rem;
+  width: 2rem;
+  flex: 0 0 auto;
+  border: 2px solid rgba(140, 255, 122, 0.75);
+}
+
+.disk-icon::before {
+  content: "";
+  position: absolute;
+  left: 0.35rem;
+  right: 0.35rem;
+  top: 0.35rem;
+  height: 0.35rem;
+  background: currentColor;
+}
+
+.disk-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 0.35rem;
+  left: 0.45rem;
+  height: 0.45rem;
+  width: 0.75rem;
+  background: currentColor;
+}
+
+.sector-node {
+  min-height: 9rem;
+  border: 2px solid rgba(140, 255, 122, 0.4);
+  padding: 1rem;
+  font-family: var(--font-mono), monospace;
+  color: rgba(216, 246, 208, 0.9);
+}
+
+.sector-node span,
+.sector-node small {
+  display: block;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(140, 255, 122, 0.7);
+}
+
+.sector-node strong {
+  display: block;
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+.sector-node small {
+  margin-top: 0.75rem;
+}
+
+.disk-card {
+  transition:
+    transform 160ms steps(3, end),
+    box-shadow 160ms steps(3, end);
+}
+
+.disk-card:hover {
+  transform: translate(-3px, -3px);
+  box-shadow:
+    inset 0 0 0 1px rgba(216, 246, 208, 0.08),
+    10px 10px 0 rgba(140, 255, 122, 0.16);
+}
+
+.terminal-cursor::after {
+  content: "_";
+  animation: cursor-pulse 1s steps(1, end) infinite;
+}
+
+.document-content > p:first-of-type::first-letter {
+  float: left;
+  margin: 0.12em 0.12em 0 0;
+  font-size: 4.3rem;
+  line-height: 0.82;
+  font-weight: 600;
+}
+
+.dark .document-content > p:first-of-type::first-letter {
+  font-family: var(--font-mono), monospace;
+  color: #8cff7a;
 }
 
 /* .bg-grid {

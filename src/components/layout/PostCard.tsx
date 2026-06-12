@@ -1,86 +1,107 @@
 import Link from "next/link";
 import Image from "next/image";
-import { randomNumber } from "@/lib/randomNumber";
 
 type PostCardProps = {
+  index: number;
   title: string;
   readTime: number | null;
   slug: string;
   coverImage: string | null;
+  createdAt: Date;
+  categories: {
+    name: string;
+    slug: string;
+  }[];
 };
 
-export function PostCard({ title, readTime, slug, coverImage }: PostCardProps) {
+export function PostCard({
+  index,
+  title,
+  readTime,
+  slug,
+  coverImage,
+  createdAt,
+  categories,
+}: PostCardProps) {
+  const entryNumber = String(index).padStart(3, "0");
+
   return (
     <Link
       href={`/post/${slug}`}
       className="
-        group relative block overflow-hidden transition-colors
-        border border-black/20 bg-white hover:bg-neutral-50
-        dark:border-white/15 dark:bg-neutral-950 dark:hover:bg-neutral-900
+        group relative block overflow-hidden border border-black/20
+        bg-stone-100 transition-[background,transform] duration-200
+        hover:-translate-y-1 hover:bg-white
+        dark:border-white/15 dark:bg-neutral-900 dark:hover:bg-neutral-800
       "
     >
-      {/* Vertical Side Lines */}
-      <div className="absolute left-0 top-0 h-full w-[1px] bg-black/10 dark:bg-white/10" />
-      <div className="absolute right-0 top-0 h-full w-[1px] bg-black/10 dark:bg-white/10" />
+      <div className="pointer-events-none absolute inset-0 bg-[repeating-linear-gradient(90deg,transparent_0,transparent_17px,rgba(0,0,0,0.16)_17px,rgba(0,0,0,0.16)_18px)] opacity-0 transition-opacity group-hover:opacity-100 dark:bg-[repeating-linear-gradient(90deg,transparent_0,transparent_17px,rgba(255,255,255,0.1)_17px,rgba(255,255,255,0.1)_18px)]" />
 
-      {/* Side Label */}
-      <div className="absolute -left-8 top-1/2 -translate-y-1/2 rotate-90">
-        <span className="text-[9px] font-mono tracking-widest text-neutral-400 dark:text-neutral-500">
-          MODULE • {slug}
+      <div className="absolute -left-10 top-1/2 hidden -translate-y-1/2 rotate-90 sm:block">
+        <span className="text-[9px] font-mono uppercase tracking-[0.24em] text-neutral-400 dark:text-neutral-500">
+          Object / {slug}
         </span>
       </div>
 
-      {/* Header Row */}
       <div
         className="
-          flex justify-between items-center px-4 py-2
-          border-b border-black/15 bg-neutral-50/30
-          dark:border-white/15 dark:bg-neutral-900/40
+          flex items-center justify-between border-b border-black/20 px-4 py-2
+          font-mono text-[10px] uppercase tracking-[0.2em] text-neutral-600
+          dark:border-white/15 dark:text-neutral-400
         "
       >
-        <span className="text-[10px] font-mono tracking-wider text-neutral-600 dark:text-neutral-400">
-          SECTION 01.{randomNumber}
-        </span>
-        <span className="text-[10px] font-mono tracking-wider text-neutral-600 dark:text-neutral-400">
-          {readTime} MIN
-        </span>
+        <span>Entry {entryNumber}</span>
+        <span>{readTime ?? "--"} Min</span>
       </div>
 
-      {/* Image */}
-      <div className="aspect-[4/3] border-b border-black/15 dark:border-white/15 relative overflow-hidden">
+      <div className="relative aspect-[4/3] overflow-hidden border-b border-black/20 dark:border-white/15">
         {coverImage ? (
           <Image
             src={coverImage}
             alt={title}
             fill
             className="
-              object-cover grayscale-50 group-hover:grayscale-25
-              transition-all duration-500
+              object-cover grayscale transition duration-500
+              group-hover:scale-[1.03] group-hover:grayscale-0
             "
           />
         ) : (
-          <div className="w-full h-full flex items-center justify-center text-neutral-400 dark:text-neutral-500 text-xs font-mono tracking-wider">
-            NO IMAGE
+          <div className="flex h-full w-full items-center justify-center bg-[repeating-linear-gradient(135deg,transparent,transparent_8px,rgba(0,0,0,0.05)_8px,rgba(0,0,0,0.05)_9px)] text-xs font-mono uppercase tracking-[0.24em] text-neutral-400 dark:bg-[repeating-linear-gradient(135deg,transparent,transparent_8px,rgba(255,255,255,0.07)_8px,rgba(255,255,255,0.07)_9px)] dark:text-neutral-500">
+            Unscanned
           </div>
         )}
+        <div className="absolute bottom-2 left-2 border border-black/20 bg-stone-100 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.18em] text-neutral-600 dark:border-white/15 dark:bg-neutral-950 dark:text-neutral-300">
+          {createdAt.toISOString().slice(0, 10)}
+        </div>
       </div>
 
-      {/* Title Block */}
       <div className="px-4 py-6">
-        <p className="text-[10px] font-mono mb-3 tracking-wider text-neutral-500 dark:text-neutral-400">
-          SPECIFICATION ENTRY
+        <p className="mb-4 font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:text-neutral-400">
+          Catalogued Thought
         </p>
 
         <h2
           className="
-            text-[18px] font-medium leading-tight tracking-tight
-            text-neutral-900 group-hover:translate-x-[2px]
-            transition-transform
+            text-xl font-medium leading-tight tracking-tight text-neutral-950
+            transition-transform group-hover:translate-x-1
             dark:text-neutral-100
           "
         >
           {title}
         </h2>
+
+        <div className="mt-7 flex flex-wrap gap-2">
+          {(categories.length ? categories : [{ name: "Unclassified", slug: "none" }]).map(
+            (category) => (
+              <span
+                key={category.slug}
+                className="border border-black/20 px-2 py-1 font-mono text-[9px] uppercase tracking-[0.16em] text-neutral-500 dark:border-white/15 dark:text-neutral-400"
+              >
+                {category.name}
+              </span>
+            )
+          )}
+        </div>
       </div>
     </Link>
   );

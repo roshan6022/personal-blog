@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/command";
 import { useRouter } from "next/navigation";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { TextAlignStart } from "lucide-react";
+import { GitBranch, Library, Map, ScanSearch, TextAlignStart } from "lucide-react";
 import { Kbd } from "./ui/kbd";
 import { CornerDownLeft } from "lucide-react";
 
@@ -39,11 +39,14 @@ export function SearchCommand({ posts }: { posts: SearchItem[] }) {
 
   return (
     <CommandDialog open={open} onOpenChange={setOpen}>
-      <DialogTitle className="sr-only">Search</DialogTitle>
-      <CommandInput placeholder="Search posts…" />
+      <DialogTitle className="sr-only">Archive Query System</DialogTitle>
+      <div className="border-b border-black/20 px-4 py-3 font-mono text-[10px] uppercase tracking-[0.24em] text-neutral-500 dark:border-white/15 dark:text-neutral-400">
+        Archive Query / Retrieval System
+      </div>
+      <CommandInput placeholder="Query archive entries..." />
       <CommandList>
-        <CommandEmpty>No results found.</CommandEmpty>
-        <CommandGroup heading="Posts">
+        <CommandEmpty>No matching archive records.</CommandEmpty>
+        <CommandGroup heading="Archive Entries">
           {posts.map((post) => (
             <CommandItem
               key={post.id}
@@ -53,25 +56,57 @@ export function SearchCommand({ posts }: { posts: SearchItem[] }) {
                 setOpen(false);
               }}
             >
-              <TextAlignStart /> {post.title}
+              <TextAlignStart />
+              <span>{post.title}</span>
             </CommandItem>
           ))}
         </CommandGroup>
-        <CommandGroup heading="Pages">
+        <CommandGroup heading="Navigation Modes">
           <CommandItem
-            value="About"
+            value="Index"
             onSelect={() => {
-              router.push("/about");
+              router.push("/#index");
               setOpen(false);
             }}
           >
-            About
+            <Library />
+            <span>Index / Classifications</span>
+          </CommandItem>
+          <CommandItem
+            value="Map"
+            onSelect={() => {
+              router.push("/#map");
+              setOpen(false);
+            }}
+          >
+            <Map />
+            <span>Map / Connected Thoughts</span>
+          </CommandItem>
+          <CommandItem
+            value="Timeline"
+            onSelect={() => {
+              router.push("/#timeline");
+              setOpen(false);
+            }}
+          >
+            <GitBranch />
+            <span>Timeline / Evolution</span>
+          </CommandItem>
+          <CommandItem
+            value="Archive"
+            onSelect={() => {
+              router.push("/#archive");
+              setOpen(false);
+            }}
+          >
+            <ScanSearch />
+            <span>Archive / All Entries</span>
           </CommandItem>
         </CommandGroup>
       </CommandList>
-      <div className="flex items-center justify-end gap-6 px-4 py-2 border-t border-border text-xs text-muted-foreground">
+      <div className="flex items-center justify-end gap-6 border-t border-black/20 px-4 py-2 font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-500 dark:border-white/15 dark:text-neutral-400">
         <div className="flex items-center gap-2">
-          <span>Go to page</span>
+          <span>Retrieve</span>
           <Kbd>
             <CornerDownLeft />
           </Kbd>

@@ -15,12 +15,13 @@ export default async function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${mono.variable} ${sans.variable} antialiased bg-stone-100 dark:bg-black transition-colors`}
+        className={`${mono.variable} ${sans.variable} bg-stone-100 antialiased transition-colors dark:bg-neutral-950`}
       >
         <ThemeProvider
           attribute="class"
-          defaultTheme="system"
-          enableSystem
+          defaultTheme="light"
+          enableSystem={false}
+          themes={["light", "dark"]}
           disableTransitionOnChange
         >
           <Navbar />

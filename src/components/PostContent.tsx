@@ -4,61 +4,55 @@ import { cn } from "@/lib/utils";
 export function PostContent({ post, html }: { post: any; html: string }) {
   return (
     <article className="relative">
-      {/* Right notes */}
-      <aside className="hidden lg:block absolute right-0 top-0 -mr-24 w-32 text-[10px] font-mono text-neutral-500 dark:text-neutral-400 leading-relaxed tracking-wider">
-        <p>NOTES</p>
+      <aside className="absolute -right-28 top-0 hidden w-24 text-[10px] font-mono uppercase leading-relaxed tracking-[0.24em] text-neutral-400 dark:text-neutral-500 xl:block">
+        <p>Annotation Margin / {post.slug}</p>
       </aside>
 
-      {/* Prose content */}
-      <div className="py-5">
+      <div className="py-2">
         <div
           className={cn(
-            "max-w-none",
+            "document-content max-w-none",
 
-            // Paragraphs
-            "[&>p]:text-[17px] [&>p]:leading-[1.75] [&>p]:mb-6",
+            "[&>p]:mb-7 [&>p]:text-[18px] [&>p]:leading-[1.9]",
             "[&>p]:text-neutral-700 dark:[&>p]:text-neutral-300",
 
-            // Headings
-            "[&>h1]:text-[36px] [&>h1]:font-bold [&>h1]:tracking-tight",
+            "[&>h1]:text-[38px] [&>h1]:font-semibold [&>h1]:tracking-tight",
             "[&>h1]:mt-16 [&>h1]:mb-8",
-            "[&>h1]:text-neutral-900 dark:[&>h1]:text-neutral-100",
+            "[&>h1]:text-neutral-950 dark:[&>h1]:text-neutral-100",
 
-            "[&>h2]:text-[28px] [&>h2]:font-semibold [&>h2]:tracking-tight",
-            "[&>h2]:mt-12 [&>h2]:mb-6",
-            "[&>h2]:text-neutral-900 dark:[&>h2]:text-neutral-100",
+            "[&>h2]:border-t [&>h2]:border-black/20 [&>h2]:pt-8",
+            "[&>h2]:text-[30px] [&>h2]:font-semibold [&>h2]:tracking-tight",
+            "[&>h2]:mt-14 [&>h2]:mb-6",
+            "[&>h2]:text-neutral-950 dark:[&>h2]:border-white/15 dark:[&>h2]:text-neutral-100",
 
             "[&>h3]:text-[22px] [&>h3]:font-medium",
             "[&>h3]:mt-10 [&>h3]:mb-4",
-            "[&>h3]:text-neutral-900 dark:[&>h3]:text-neutral-100",
+            "[&>h3]:text-neutral-950 dark:[&>h3]:text-neutral-100",
 
             "[&>h4]:text-[18px] [&>h4]:font-medium",
             "[&>h4]:mt-8 [&>h4]:mb-3",
-            "[&>h4]:text-neutral-900 dark:[&>h4]:text-neutral-100",
+            "[&>h4]:text-neutral-950 dark:[&>h4]:text-neutral-100",
 
-            // Code blocks
-            "[&>pre]:bg-neutral-900 dark:[&>pre]:bg-neutral-950",
-            "[&>pre]:py-4 [&>pre]:px-1 [&>pre]:rounded-sm [&>pre]:my-8",
+            "[&>pre]:bg-neutral-950 dark:[&>pre]:bg-black",
+            "[&>pre]:my-10 [&>pre]:rounded-none [&>pre]:px-1 [&>pre]:py-4",
             "[&>pre]:overflow-x-auto [&>pre]:border",
-            "[&>pre]:border-neutral-800 dark:[&>pre]:border-neutral-700",
+            "[&>pre]:border-neutral-800 dark:[&>pre]:border-white/15",
 
             "[&>pre>code]:bg-transparent [&>pre>code]:p-0",
-            "[&>pre>code]:text-neutral-100 [&>pre>code]:text-sm",
+            "[&>pre>code]:text-sm [&>pre>code]:text-neutral-100",
 
-            // Inline code
-            "[&>:not(pre)>code]:bg-neutral-100 dark:[&>:not(pre)>code]:bg-neutral-800",
-            "[&>:not(pre)>code]:text-neutral-900 dark:[&>:not(pre)>code]:text-neutral-100",
+            "[&>:not(pre)>code]:bg-white dark:[&>:not(pre)>code]:bg-neutral-900",
+            "[&>:not(pre)>code]:border [&>:not(pre)>code]:border-black/15 dark:[&>:not(pre)>code]:border-white/15",
+            "[&>:not(pre)>code]:text-neutral-950 dark:[&>:not(pre)>code]:text-neutral-100",
             "[&>:not(pre)>code]:px-1.5 [&>:not(pre)>code]:py-0.5 [&>:not(pre)>code]:rounded",
             "[&>:not(pre)>code]:text-[15px] ",
 
-            // Links
-            "[&>a]:text-blue-600 dark:[&>a]:text-blue-400",
-            "[&>a]:underline [&>a]:decoration-blue-300 dark:[&>a]:decoration-blue-600",
-            "[&>a]:underline-offset-2",
-            "hover:[&>a]:decoration-blue-600 dark:hover:[&>a]:decoration-blue-400",
+            "[&>a]:text-neutral-950 dark:[&>a]:text-neutral-100",
+            "[&>a]:underline [&>a]:decoration-black/30 dark:[&>a]:decoration-white/40",
+            "[&>a]:underline-offset-4",
+            "hover:[&>a]:decoration-black dark:hover:[&>a]:decoration-white",
             "[&>a]:transition-colors",
 
-            // Lists
             "[&>ul]:list-disc [&>ul]:ml-6 [&>ul]:my-6",
             "[&>ul]:text-neutral-700 dark:[&>ul]:text-neutral-300",
 
@@ -67,30 +61,26 @@ export function PostContent({ post, html }: { post: any; html: string }) {
 
             "[&>li]:mb-2 [&>li]:leading-[1.75]",
 
-            // Blockquotes
-            "[&>blockquote]:border-l-4",
-            "[&>blockquote]:border-neutral-300 dark:[&>blockquote]:border-neutral-600",
-            "[&>blockquote]:pl-6 [&>blockquote]:py-2 [&>blockquote]:italic [&>blockquote]:my-8",
+            "[&>blockquote]:border-l",
+            "[&>blockquote]:border-neutral-950 dark:[&>blockquote]:border-white/40",
+            "[&>blockquote]:my-10 [&>blockquote]:pl-6 [&>blockquote]:py-2",
             "[&>blockquote]:text-neutral-600 dark:[&>blockquote]:text-neutral-400",
 
-            // Horizontal rules
-            "[&>hr]:border-neutral-200 dark:[&>hr]:border-neutral-800 [&>hr]:my-12",
+            "[&>hr]:border-neutral-300 dark:[&>hr]:border-white/15 [&>hr]:my-12",
 
-            // Tables
             "[&>table]:w-full [&>table]:my-8 [&>table]:border-collapse",
             "[&>table>thead]:border-b-2",
-            "[&>table>thead]:border-neutral-300 dark:[&>table>thead]:border-neutral-700",
+            "[&>table>thead]:border-neutral-300 dark:[&>table>thead]:border-white/15",
             "[&>table>thead>tr>th]:px-4 [&>table>thead>tr>th]:py-3 [&>table>thead>tr>th]:text-left",
             "[&>table>thead>tr>th]:font-semibold",
-            "[&>table>thead>tr>th]:text-neutral-900 dark:[&>table>thead>tr>th]:text-neutral-100",
+            "[&>table>thead>tr>th]:text-neutral-950 dark:[&>table>thead>tr>th]:text-neutral-100",
             "[&>table>tbody>tr]:border-b",
-            "[&>table>tbody>tr]:border-neutral-200 dark:[&>table>tbody>tr]:border-neutral-800",
+            "[&>table>tbody>tr]:border-neutral-200 dark:[&>table>tbody>tr]:border-white/10",
             "[&>table>tbody>tr>td]:px-4 [&>table>tbody>tr>td]:py-3",
             "[&>table>tbody>tr>td]:text-neutral-700 dark:[&>table>tbody>tr>td]:text-neutral-300",
 
-            // Images
-            "[&>img]:rounded-lg [&>img]:my-12 [&>img]:border",
-            "[&>img]:border-neutral-200 dark:[&>img]:border-neutral-800"
+            "[&>img]:my-12 [&>img]:rounded-none [&>img]:border",
+            "[&>img]:border-neutral-300 dark:[&>img]:border-white/15"
           )}
           dangerouslySetInnerHTML={{ __html: html }}
         />
